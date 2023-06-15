@@ -8,7 +8,7 @@ jobs:
   run_jmeter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Java
         run: |
          sudo apt-get install openjdk-18-jdk -y
@@ -48,13 +48,59 @@ jobs:
          mv report_dashboard.html reports/test_results/report_dashboard.html
          cd reports/test_results
          ls -lrth
-      
+         
+      - name: List of Screenshot
+        if: always()
+        shell: bash
+        run: |
+          echo "#######################################################################################################"
+          echo $PWD
+          ls -l
+          cd $PWD/JMeter_EI/perf/resources/Screenshots
+          echo $PWD
+          ls -l
+          echo "#######################################################################################################"
+          cd ../../../..
+          echo $PWD
+          ls -l
+          
+      - name: Upload Screenshot
+        uses: actions/upload-artifact@v3
+        with:
+          name: Screenshot
+          path: ./JMeter_EI/perf/resources/Screenshots
+
       - name: Upload Report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: jmeter_report
           path: ./reports/test_results/report_dashboard.html
           
+      - name: List files
+        if: always()
+        shell: bash
+        run: |
+          cat jmeter.log
+          echo "###### List of all files and folder #####"
+          echo $PWD
+          ls -l
+          cd perfReport
+          echo $PWD
+          ls -l
+          cd ..
+          echo "#######################################################################################################"
+          echo $PWD
+          ls -l
+          
+      - name: Deploy report page to GitHub Page
+        if: always()
+        env:
+          WORKFLOW_NAME: ${{ github.workflow }}
+          run: echo $PWD
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports/test_results/report_dashboard.html
           
     #  Checkout the gh-pages branch in temporary folder
 
