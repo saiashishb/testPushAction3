@@ -64,11 +64,11 @@ jobs:
           echo $PWD
           ls -l
           
-      - name: Upload Screenshot
-        uses: actions/upload-artifact@v3
-        with:
-          name: Screenshot
-          path: ./JMeter_EI/perf/resources/Screenshots
+#       - name: Upload Screenshot
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: Screenshot
+#           path: ./JMeter_EI/perf/resources/Screenshots
 
       - name: Upload Report
         uses: actions/upload-artifact@v3
@@ -76,21 +76,21 @@ jobs:
           name: jmeter_report
           path: ./reports/test_results/report_dashboard.html
           
-      - name: List files
-        if: always()
-        shell: bash
-        run: |
-          cat jmeter.log
-          echo "###### List of all files and folder #####"
-          echo $PWD
-          ls -l
-          cd perfReport
-          echo $PWD
-          ls -l
-          cd ..
-          echo "#######################################################################################################"
-          echo $PWD
-          ls -l
+#       - name: List files
+#         if: always()
+#         shell: bash
+#         run: |
+#           cat jmeter.log
+#           echo "###### List of all files and folder #####"
+#           echo $PWD
+#           ls -l
+#           cd perfReport
+#           echo $PWD
+#           ls -l
+#           cd ..
+#           echo "#######################################################################################################"
+#           echo $PWD
+#           ls -l
           
       - name: Deploy report page to GitHub Page
         if: always()
