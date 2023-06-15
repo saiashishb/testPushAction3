@@ -2,7 +2,7 @@ name: Execute JMeter Script
 on:
   push:
     branches:
-      - UP
+      - main
       
 jobs:
   run_jmeter:
