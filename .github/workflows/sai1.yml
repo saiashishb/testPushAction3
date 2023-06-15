@@ -1,0 +1,41 @@
+name: Execute JMeter Script
+on:
+  push:
+    branches:
+      - UP
+      
+jobs:
+  run_jmeter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Java
+        run: |
+         sudo apt-get install openjdk-18-jdk -y
+         javac -version
+ 
+      - name: Install JMeter
+        run: | 
+         ls -lrth
+         tar zxvf apache-jmeter-5.5.tgz         
+         echo "export PATH=$PATH:apache-jmeter-5.5/bin" >> ~/.bashrc
+         source ~/.bashrc
+         ls -lrth
+         
+      - name: Execute JMeter Script ad generate HTML Report
+        run: |
+         apache-jmeter-5.5/bin/jmeter -v
+         apache-jmeter-5.5/bin/jmeter -n -t SETUPSetTagsOneTime4Months.jmx -l results.jtl -e -o report_dashboard.html
+         echo $PWD
+         ls -lrth
+         
+         mkdir -p reports/test_results
+         mv report_dashboard.html reports/test_results/report_dashboard.html
+         cd reports/test_results
+         ls -lrth
+      
+      - name: Upload Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter_report
+          path: ./reports/test_results/report_dashboard.html
