@@ -33,7 +33,7 @@ jobs:
       - name: Install git
         if: always()
         run: | 
-         sudo apt-get update && apt-get install -y git-lfs         
+         sudo apt-get update && sudo apt-get install -y git-lfs         
          
       - name: Execute JMeter Script and generate HTML Report
         run: |
