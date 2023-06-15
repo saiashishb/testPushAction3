@@ -49,20 +49,20 @@ jobs:
          cd reports/test_results
          ls -lrth
          
-      - name: List of Screenshot
-        if: always()
-        shell: bash
-        run: |
-          echo "#######################################################################################################"
-          echo $PWD
-          ls -l
-          cd $PWD/JMeter_EI/perf/resources/Screenshots
-          echo $PWD
-          ls -l
-          echo "#######################################################################################################"
-          cd ../../../..
-          echo $PWD
-          ls -l
+#       - name: List of Screenshot
+#         if: always()
+#         shell: bash
+#         run: |
+#           echo "#######################################################################################################"
+#           echo $PWD
+#           ls -l
+#           cd $PWD/JMeter_EI/perf/resources/Screenshots
+#           echo $PWD
+#           ls -l
+#           echo "#######################################################################################################"
+#           cd ../../../..
+#           echo $PWD
+#           ls -l
           
 #       - name: Upload Screenshot
 #         uses: actions/upload-artifact@v3
