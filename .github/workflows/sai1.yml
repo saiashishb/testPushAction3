@@ -25,7 +25,7 @@ jobs:
       - name: Execute JMeter Script ad generate HTML Report
         run: |
          apache-jmeter-5.5/bin/jmeter -v
-         apache-jmeter-5.5/bin/jmeter -n -t SETUPSetTagsOneTime4Months.jmx -l results.jtl -e -o report_dashboard.html
+         apache-jmeter-5.5/bin/jmeter -n -t TSSai.jmx -l results.jtl -e -o report_dashboard.html
          echo $PWD
          ls -lrth
          
