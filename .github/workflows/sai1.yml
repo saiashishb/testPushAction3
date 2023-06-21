@@ -26,10 +26,13 @@ jobs:
         uses: onyxmueller/build-tag-number@v1
         with:
          token: ${{secrets.github_token}}        
-      - name: Print new build number
+      - name: Print new build number $BUILD_NUMBER
         run: echo "Build number is $BUILD_NUMBER"
+      - name: Print new build number by ${{env.BUILD_NUMBER}}
+        run: echo "Build number is ${{env.BUILD_NUMBER}}"
       # Or, if you're on Windows: echo "Build number is ${env:BUILD_NUMBER}"
       #test 2 for build number
+
          
 #       - name: Generate build number
 #         if: always()
@@ -53,9 +56,9 @@ jobs:
          echo $PWD
          ls -lrth
          
-         mkdir -p reports/test_results/$BUILD_NUMBER
-         mv report_dashboard.html reports/test_results/$BUILD_NUMBER/report_dashboard.html
-         cd reports/test_results/$BUILD_NUMBER
+         mkdir -p reports/test_results/${{env.BUILD_NUMBER}}
+         mv report_dashboard.html reports/test_results/${{env.BUILD_NUMBER}}/report_dashboard.html
+         cd reports/test_results/${{env.BUILD_NUMBER}}
          ls -lrth
          
 #       - name: List of Screenshot
@@ -83,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jmeter_report
-          path: ./reports/test_results/$BUILD_NUMBER/report_dashboard.html
+          path: ./reports/test_results/${{env.BUILD_NUMBER}}/report_dashboard.html
           
 #       - name: List files
 #         if: always()
@@ -109,7 +112,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports/test_results/$BUILD_NUMBER/report_dashboard.html
+          publish_dir: ./reports/test_results/${{env.BUILD_NUMBER}}/report_dashboard.html
           
     #  Checkout the gh-pages branch in temporary folder
 
